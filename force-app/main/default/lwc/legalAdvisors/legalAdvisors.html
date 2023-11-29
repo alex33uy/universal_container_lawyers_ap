@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Legal Advisors Data" icon-name="standard:contact">
+        <div class="slds-m-around_medium">
+            <template if:true={lAdvisor.data}>
+                <template for:each={lAdvisor.data} for:item="legalAdvisor">
+                    <p key={legalAdvisor.Account_Number__c}>
+                        <strong>Account Name</strong> {legalAdvisor.Account_Name__c}<br />
+                        <strong>Account Number</strong> {legalAdvisor.Account_Number__c}<br />
+                        <strong>Account Status</strong> {legalAdvisor.Account_Status__c}<br />
+                        <!-- Agrega más campos según sea necesario -->
+                    </p>
+                </template>
+            </template>
+            <template if:true={lAdvisor.error}>
+                <p>Error loading data</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
+
+    
