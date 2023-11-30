@@ -4,7 +4,7 @@
     <caseSensitive>true</caseSensitive>
     <externalId>true</externalId>
     <label>Client Number</label>
-    <length>25</length>
+    <length>40</length>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>

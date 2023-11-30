@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Clientes" icon-name="standard:contact">
+        <div class="slds-m-around_medium">
+            <template if:true={clients}>
+                <template for:each={clients} for:item="client">
+                    <p key={client.Client_ID__c}>
+                        Nombre: {client.First_Name__c} {client.Last_Name__c}<br />
+                        Número de Cliente: {client.Client_Number__c}<br />
+                        Email: {client.Email__c}<br />
+                        Teléfono: {client.Phone__c}<br />
+                        Dirección: {client.Address__c}<br />
+                        ID del Cliente: {client.Client_ID__c}<br />
+                    </p>
+                </template>
+            </template>
+            <template if:true={error}>
+                <p>Error al cargar datos de clientes: {error}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
