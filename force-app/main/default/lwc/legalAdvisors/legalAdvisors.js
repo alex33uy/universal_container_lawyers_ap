@@ -1,11 +1,9 @@
 import { LightningElement, wire } from 'lwc';
-import getLegalAdvisorsData from '@salesforce/apex/ucl_LegalAdvisors.getLegalAdvisorsData';
+import showLegalAdvisorData from '@salesforce/apex/ucl_QueryData.showLegalAdvisorData';
 
 export default class LegalAdvisorsComponent extends LightningElement {
-    legalAdvisors;
-    error;
 
-    @wire(getLegalAdvisorsData)
+    @wire(showLegalAdvisorData)
     wiredLegalAdvisors({ error, data }) {
         if (data) {
             this.legalAdvisors = data;

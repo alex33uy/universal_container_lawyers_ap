@@ -1,4 +1,4 @@
-global class DeleteOldErrorLogs implements Schedulable {
+global class ucl_DeleteOldErrorLogs implements Schedulable {
 
     global void execute(SchedulableContext sc) {
         // Calcula la fecha hace un mes.
@@ -15,6 +15,6 @@ global class DeleteOldErrorLogs implements Schedulable {
 
     // Ejecuta este código desde la consola de desarrollador de Apex.
     String cronExp = '0 0 0 * * ?'; // Cada día a medianoche
-    String jobID = System.schedule('DeleteOldErrorLogs', cronExp, new DeleteOldErrorLogs());
+    String jobID = System.schedule('DeleteOldErrorLogs', cronExp, new ucl_DeleteOldErrorLogs());
 
 }

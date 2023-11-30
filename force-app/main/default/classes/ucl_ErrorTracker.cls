@@ -1,4 +1,4 @@
-public class ErrorTracker {
+public class ucl_ErrorTracker {
 
     public static void logError(String errorMessage, String stackTrace) {
         // Crea un nuevo registro de Error_Log__c para almacenar el error.
