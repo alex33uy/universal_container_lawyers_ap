@@ -1,7 +1,9 @@
 public with sharing class ucl_QueryData {
+    
 
     @AuraEnabled(cacheable=true)
     public static List<LegalAdvisors__c> showLegalAdvisorData() {
+        
         List<LegalAdvisors__c> la= [SELECT Account_Name__c,
                                      Account_Number__c,
                                      Account_Status__c, 
