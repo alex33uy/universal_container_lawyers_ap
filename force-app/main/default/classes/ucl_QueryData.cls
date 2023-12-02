@@ -20,8 +20,8 @@ public with sharing class ucl_QueryData {
                                        Last_Name__c, 
                                        Email__c, 
                                        Phone__c, 
-                                       Address__c,
-                                       Client_ID__c
+                                       Address__c
+            
                                        //ID_client_contract__c 
                                        FROM Client__c];
          system.debug(lc);

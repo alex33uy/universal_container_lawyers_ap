@@ -1,6 +1,13 @@
 <template>
     <lightning-card title="Legal Advisors" icon-name="custom:custom14">
+        
         <div class="slds-m-around_medium">
+            <button class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-large" title="More Options" onclick={handleReload}>
+                <svg class="slds-button__icon" aria-hidden="true">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#settings"></use>
+                </svg>
+                <span class="slds-assistive-text">More options</span>
+              </button>
             <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" aria-label="Example table of Opportunities with striped rows">
                 <thead>
                 <tr class="slds-line-height_reset">
@@ -17,6 +24,7 @@
                 <div class="slds-truncate" title="Account Status">Account Status</div>
                 </th>
                 </tr>
+                
                 </thead>
 
                 <tbody>
