@@ -5,10 +5,10 @@ public with sharing class ucl_UpsertClients {
         req.setEndpoint('https://altimetrik-bootcamp.herokuapp.com/LegalAccounts');
         req.setMethod('GET');
         HttpResponse res = http.send(req);
-	
+	// List that got the clients to upsert
          List<Client__c> ClientsToUpsert = new list<Client__c>();
          
-
+   // list that show the legal advisors
          List<LegalAdvisors__c> legalAdvisors = [Select Id, Account_Number__c
                                                 From LegalAdvisors__c];
 
