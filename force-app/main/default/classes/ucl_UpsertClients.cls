@@ -1,4 +1,5 @@
 public with sharing class ucl_UpsertClients {
+  @AuraEnabled(cacheable=true)
     public static void UpsertClients() {
         Http http = new Http();
         HttpRequest req = new HttpRequest();

@@ -1,4 +1,6 @@
 public with sharing class ucl_UpsertAdvisors {
+    @AuraEnabled(cacheable=true)
+    
     public static void UpsertAdvisors() {
         Http http = new Http();
         HttpRequest req = new HttpRequest();
@@ -20,7 +22,7 @@ public with sharing class ucl_UpsertAdvisors {
                         
                        LegalAdvisors__c legalAdvisor = new LegalAdvisors__c();             
                        legalAdvisor.Account_Name__c = (String) mapLAdvisorsData.get('AccountName');
-                       legalAdvisor.Name = (String) mapLAdvisorsData.get('AccountName');
+                       legalAdvisor.Name = 'papas';
                        legalAdvisor.Account_Number__c =  (String) mapLAdvisorsData.get('AccountNumber');
                        legalAdvisor.Account_Status__c = (String) mapLAdvisorsData.get('AccountStatus');
                        //legalAdvisor.As_of_Date__c =  Date.parse( mapLAdvisorsData.get('AsOfDate'));

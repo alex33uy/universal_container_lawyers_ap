@@ -11,7 +11,7 @@ export default class LegalAdvisorsComponent extends LightningElement {
     
         } else if (error) {
             this.error = error;
-            console.log('este es el error '+error)
+            console.log('este es el error ')
         }
     }
     @wire(getLegalAdvisorsData) result;
