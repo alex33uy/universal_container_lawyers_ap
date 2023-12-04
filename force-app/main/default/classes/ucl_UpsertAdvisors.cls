@@ -1,5 +1,5 @@
 public with sharing class ucl_UpsertAdvisors {
-    
+    @AuraEnabled(cacheable=true) 
     public static void UpsertAdvisors() {
         Http http = new Http();
         HttpRequest req = new HttpRequest();
@@ -8,7 +8,8 @@ public with sharing class ucl_UpsertAdvisors {
         HttpResponse res = http.send(req);
 
         List<LegalAdvisors__c> legalAdvisorsToUpsert = new list<LegalAdvisors__c>();	
-      //  List<Client__c> ClientsToUpsert = new list<Client__c>();
+
+
 
         if (res.getStatusCode() == 200) {
         List<Object> objects = (List<Object>) JSON.deserializeUntyped(res.getBody());

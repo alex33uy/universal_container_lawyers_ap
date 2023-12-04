@@ -1,19 +1,20 @@
 public with sharing class ucl_UpsertClients {
-
+    @AuraEnabled(cacheable=true) 
     public static void UpsertClients() {
+      
       Http http = new Http();
       HttpRequest req = new HttpRequest();
       req.setEndpoint('https://altimetrik-bootcamp.herokuapp.com/LegalAccounts');
       req.setMethod('GET');
       HttpResponse res = http.send(req);
 
-       List<Client__c> ClientsToUpsert = new list<Client__c>();
-       
+      ucl_UpsertAdvisors.UpsertAdvisors();
 
+       List<Client__c> ClientsToUpsert = new list<Client__c>();
+       List<Client__c> ClientsToDelete = new list<Client__c>();
+       
        List<LegalAdvisors__c> legalAdvisors = [Select Id, Account_Number__c
                                               From LegalAdvisors__c];
-
-       
 
       if (res.getStatusCode() == 200) {
       List<Object> objects = (List<Object>) JSON.deserializeUntyped(res.getBody());
@@ -37,7 +38,7 @@ public with sharing class ucl_UpsertClients {
                        cl.Phone__c = (string) mapClientsData.get('Phone');
                        cl.Client_Number__c = (string) mapClientsData.get('ClientNumber');
                        cl.Legal_Advisor__c = legalA.id;
-                       cl.Name = (string) mapClientsData.get('FirstName') + ' ' (string) mapClientsData.get('LastName');
+                       cl.Name = (string) mapClientsData.get('FirstName') + ' ' + (string) mapClientsData.get('LastName');
                        ClientsToUpsert.add(cl);
                    }
                }
@@ -45,10 +46,24 @@ public with sharing class ucl_UpsertClients {
           }             
       }
       }
+
+List<String> ClientNumbers = new List<String>();
+for(Client__c c : ClientsToUpsert) {
+  ClientNumbers.add(c.Client_Number__c);
+}
+
+List<Client__c> ClientsNotInJson = [SELECT id, Client_Number__c, Created_by_Syster_Admin__c, Name  FROM Client__c WHERE Client_Number__c NOT IN : ClientNumbers];
+for(Client__c ClientToDelete : ClientsNotInJson) {
+    if(!ClientToDelete.Created_by_Syster_Admin__c) {
+        ClientsToDelete.add(ClientToDelete);
+    }
+}
+system.debug(ClientsToDelete);
+
         try {
           upsert ClientsToUpsert Client_Number__c;
+          delete ClientsToDelete;
           system.debug('Todo salio bien con clients');
-          system.debug(ClientsToUpsert);
         } catch (DmlException e) {
             Error_Log__c customError = new Error_Log__c();
             customError.ErrorMessage__c = e.getMessage();
