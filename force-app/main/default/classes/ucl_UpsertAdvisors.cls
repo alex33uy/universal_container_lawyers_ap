@@ -1,6 +1,7 @@
 public with sharing class ucl_UpsertAdvisors {
     @AuraEnabled(cacheable=true) 
     public static void UpsertAdvisors() {
+        //http call for response 
         Http http = new Http();
         HttpRequest req = new HttpRequest();
         req.setEndpoint('https://altimetrik-bootcamp.herokuapp.com/LegalAccounts');
@@ -9,27 +10,32 @@ public with sharing class ucl_UpsertAdvisors {
 
         List<LegalAdvisors__c> legalAdvisorsToUpsert = new list<LegalAdvisors__c>();	
 
-
-
+        //if status code ok proceed
         if (res.getStatusCode() == 200) {
-        List<Object> objects = (List<Object>) JSON.deserializeUntyped(res.getBody());
-                                    
+        List<Object> objects = (List<Object>) JSON.deserializeUntyped(res.getBody());                                  
          for (Object obj: objects) {
-  
+        // map to get value and key on advisors
           Map<String, Object> mapLAdvisorsData = (Map<String, Object>)obj;      
-                    
+        // ckecking advisors status        
                     if((string) mapLAdvisorsData.get('AccountStatus') == 'Enabled') { // unico cambio a testear string en la condicion
-                        
+                        // mapping data
                        LegalAdvisors__c legalAdvisor = new LegalAdvisors__c();             
                        legalAdvisor.Account_Name__c = (String) mapLAdvisorsData.get('AccountName');
-                       legalAdvisor.Name = 'papas';
+                       legalAdvisor.Name = (String) mapLAdvisorsData.get('AccountName');
                        legalAdvisor.Account_Number__c =  (String) mapLAdvisorsData.get('AccountNumber');
                        legalAdvisor.Account_Status__c = (String) mapLAdvisorsData.get('AccountStatus');
-                       //legalAdvisor.As_of_Date__c =  Date.parse( mapLAdvisorsData.get('AsOfDate'));
-                        legalAdvisorsToUpsert.add(legalAdvisor);
+                       string asOfDate = (string) mapLAdvisorsData.get('AsOfDate');
+                       String[] dateParts = asOfDate.split('/');
+                       Integer year = Integer.valueOf(dateParts[2]);
+                       Integer month = Integer.valueOf(dateParts[0]);
+                       Integer day = Integer.valueOf(dateParts[1]);
+                       legalAdvisor.As_of_Date__c = Date.newInstance(year, month, day);
+                       legalAdvisorsToUpsert.add(legalAdvisor);
                 }     
             }             
-        }  
+        }
+        
+        //upsert data or create error
         try {
             upsert legalAdvisorsToUpsert Account_Number__c;
             

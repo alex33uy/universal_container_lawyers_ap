@@ -12,9 +12,4 @@ global class ucl_DeleteOldErrorLogs implements Schedulable {
             System.debug('Error al eliminar registros antiguos: ' + e.getMessage());
         }
     }
-
-    // Ejecuta este código desde la consola de desarrollador de Apex.
-    String cronExp = '0 0 0 * * ?'; // Cada día a medianoche
-    String jobID = System.schedule('DeleteOldErrorLogs', cronExp, new ucl_DeleteOldErrorLogs());
-
 }
