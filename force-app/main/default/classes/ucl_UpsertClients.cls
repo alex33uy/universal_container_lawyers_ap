@@ -73,6 +73,7 @@ for(Client__c ClientToDelete : ClientsNotInJson) {
         } catch (DmlException e) {
             Error_Log__c customError = new Error_Log__c();
             customError.ErrorMessage__c = e.getMessage();
+            customError.TimeStamp__c =  DateTime.now();
             insert customError;
           System.debug(e.getMessage());
         }
