@@ -1,5 +1,5 @@
 public with sharing class ucl_UpsertClients {
-    @AuraEnabled(cacheable=true) 
+    @AuraEnabled
     public static void UpsertClients() {
       // http call
       Http http = new Http();

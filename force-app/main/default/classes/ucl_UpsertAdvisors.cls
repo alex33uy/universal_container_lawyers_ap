@@ -1,5 +1,5 @@
 public with sharing class ucl_UpsertAdvisors {
-    @AuraEnabled(cacheable=true) 
+    @AuraEnabled
     public static void UpsertAdvisors() {
         //http call for response 
         Http http = new Http();
@@ -17,7 +17,7 @@ public with sharing class ucl_UpsertAdvisors {
         // map to get value and key on advisors
           Map<String, Object> mapLAdvisorsData = (Map<String, Object>)obj;      
         // ckecking advisors status        
-                    if((string) mapLAdvisorsData.get('AccountStatus') == 'Enabled') { // unico cambio a testear string en la condicion
+                    if((string) mapLAdvisorsData.get('AccountStatus') == 'Enabled') { 
                         // mapping data
                        LegalAdvisors__c legalAdvisor = new LegalAdvisors__c();             
                        legalAdvisor.Account_Name__c = (String) mapLAdvisorsData.get('AccountName');
