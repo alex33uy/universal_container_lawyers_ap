@@ -12,7 +12,7 @@ private class ucl_TestNightlyUpdate {
         // Ejecutar el método execute
         ucl_NightlyUpdate nightlyUpdate = new ucl_NightlyUpdate();
         nightlyUpdate.execute(null);
-
+        ucl_NightlyUpdate.NightlyCalloutUpdate();
         Test.stopTest();
 
         // Verificar que no se lanzaron excepciones
