@@ -13,3 +13,5 @@ public  class ucl_NightlyUpdate implements Schedulable {
         }
     }
 }
+
+//|Callout from scheduled Apex not supported. esto sale en el debug

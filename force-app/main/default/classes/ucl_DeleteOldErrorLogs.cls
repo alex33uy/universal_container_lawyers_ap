@@ -1,6 +1,6 @@
-global class ucl_DeleteOldErrorLogs implements Schedulable {
+public class ucl_DeleteOldErrorLogs implements Schedulable {
 
-    global void execute(SchedulableContext sc) {
+    public void execute(SchedulableContext sc) {
         
         Datetime oneMonthAgo = Datetime.now().addMonths(-1);
 
@@ -20,3 +20,4 @@ global class ucl_DeleteOldErrorLogs implements Schedulable {
         }
     }
 }
+// anda excelente
