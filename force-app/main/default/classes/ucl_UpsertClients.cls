@@ -1,5 +1,5 @@
 public with sharing class ucl_UpsertClients {
-  @AuraEnabled(cacheable=true)
+
     public static void UpsertClients() {
       Http http = new Http();
       HttpRequest req = new HttpRequest();
@@ -36,8 +36,8 @@ public with sharing class ucl_UpsertClients {
                        cl.Address__c = (string) mapClientsData.get('Address');
                        cl.Phone__c = (string) mapClientsData.get('Phone');
                        cl.Client_Number__c = (string) mapClientsData.get('ClientNumber');
-                       cl.Legal_Advisor__c = legalA.id ;// si pongo legal advisor id me da null
-                       cl.Name = (string) mapClientsData.get('FirstName') + (string) mapClientsData.get('LastName');
+                       cl.Legal_Advisor__c = legalA.id;
+                       cl.Name = (string) mapClientsData.get('FirstName') + ' ' (string) mapClientsData.get('LastName');
                        ClientsToUpsert.add(cl);
                    }
                }

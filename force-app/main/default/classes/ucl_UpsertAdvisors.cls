@@ -1,5 +1,4 @@
 public with sharing class ucl_UpsertAdvisors {
-    @AuraEnabled(cacheable=true)
     
     public static void UpsertAdvisors() {
         Http http = new Http();
