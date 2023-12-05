@@ -1,12 +1,9 @@
 public with sharing class ucl_UpsertClients {
+
     @AuraEnabled
     public static void UpsertClients() {
       // http call
-      Http http = new Http();
-      HttpRequest req = new HttpRequest();
-      req.setEndpoint('https://altimetrik-bootcamp.herokuapp.com/LegalAccounts');
-      req.setMethod('GET');
-      HttpResponse res = http.send(req);
+      HttpResponse res = ucl_httpRequest.httpRequestCall();
 
       ucl_UpsertAdvisors.UpsertAdvisors();
       // creating list to fullfill with clients to upsert or to delete

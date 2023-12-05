@@ -1,5 +1,5 @@
 public with sharing class ucl_httpRequest {
-    public HttpResponse httpRequestCall() {
+    public static  HttpResponse httpRequestCall() {
         Http http = new Http();
         HttpRequest req = new HttpRequest();
         req.setEndpoint('https://altimetrik-bootcamp.herokuapp.com/LegalAccounts');

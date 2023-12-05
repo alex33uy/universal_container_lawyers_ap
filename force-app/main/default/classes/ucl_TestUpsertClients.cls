@@ -1,8 +1,17 @@
 @isTest
 private class ucl_TestUpsertClients {
+    
 
     @isTest
     static void TestUpsertClients() {
+        // Configurar el mock de HTTP para simular una respuesta exitosa 
+        Test.setMock(HttpCalloutMock.class, new httpMockUp ());
+        
+        HttpResponse res = ucl_httpRequest.httpRequestCall();
+        String expected = '[{"AccountNumbe: 209ebbb-39c6-4852-8732-82237c0674fb","AccountName":"Fadeo","AccountStatus":"Enabled","AsOfDate":"2/20/2019","Clients":[{"FirstName":"Fran","LastName":"Ruddick","Email":"fruddick0@issuu.com","Phone":"390-285-2477","Address":"434 Maple Drive","ClientNumber":"12afa152-8115-492b-bb49-87399ab49af8"}]}]' ;
+        
+        System.assertEquals(200,res.getStatusCode());
+        System.assertEquals(res.getBody(), expected); 
 
         // Crear un asesor legal para asociar a los clientes
         LegalAdvisors__c legalAdvisor = new LegalAdvisors__c(
@@ -41,6 +50,7 @@ private class ucl_TestUpsertClients {
         Test.startTest();
         ucl_UpsertClients.UpsertClients();
         Test.stopTest();
+              
 
         // Verificar la inserción correcta de clientes
         Integer countClients = [SELECT COUNT() FROM Client__c];
@@ -50,37 +60,8 @@ private class ucl_TestUpsertClients {
         Integer countDeletedClients = [SELECT COUNT() FROM Client__c WHERE Id = :existingClient.Id];
         System.assertEquals(0, countDeletedClients, 'Se esperaba que el Client__c existente se eliminara');
     }
+
+    
 }
 
-    @isTest
-    global class CalloutMock implements HttpCalloutMock{
-    global HttpResponse respond(HttpRequest req){
-        HttpResponse res = new HttpResponse();
-        res.setHeader('Content-Type','application/json');
-        res.setBody('[{"AccountNumber":"a209ebbb-39c6-4852-8732-82237c0674fb","AccountName":"Fadeo","AccountStatus":"Enabled","AsOfDate":"2/20/2019","Clients":[{"FirstName":"Fran","LastName":"Ruddick","Email":"fruddick0@issuu.com","Phone":"390-285-2477","Address":"434 Maple Drive","ClientNumber":"12afa152-8115-492b-bb49-87399ab49af8"}]}]');
-        res.setStatusCode(200);
-        return res;
-    }
-}
-
-     @isTest
-     private class CalloutClassTest {
-     @isTest static void testCallout() {
-        // Set mock callout class 
-        Test.setMock(HttpCalloutMock.class, new CalloutMock());
-        
-        // Call method to test.
-        // This causes a fake response to be sent
-        // from the class that implements HttpCalloutMock. 
-        HttpResponse res = CalloutClass.getInfoFromExternalService();
-        
-        // Verify response received contains fake values
-        String contentType = res.getHeader('Content-Type');
-        System.assert(contentType == 'application/json');
-        String actualValue = res.getBody();
-        String expectedValue = '[{"AccountNumber":"a209ebbb-39c6-4852-8732-82237c0674fb","AccountName":"Fadeo","AccountStatus":"Enabled","AsOfDate":"2/20/2019","Clients":[{"FirstName":"Fran","LastName":"Ruddick","Email":"fruddick0@issuu.com","Phone":"390-285-2477","Address":"434 Maple Drive","ClientNumber":"12afa152-8115-492b-bb49-87399ab49af8"}]}]';
-        System.assertEquals(actualValue, expectedValue);
-        System.assertEquals(200, res.getStatusCode());
-    }
-}
 

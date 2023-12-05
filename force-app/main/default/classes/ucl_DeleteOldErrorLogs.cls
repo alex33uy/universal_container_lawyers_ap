@@ -20,4 +20,3 @@ public class ucl_DeleteOldErrorLogs implements Schedulable {
         }
     }
 }
-// anda excelente

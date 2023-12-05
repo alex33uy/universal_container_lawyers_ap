@@ -2,11 +2,7 @@ public with sharing class ucl_UpsertAdvisors {
     @AuraEnabled
     public static void UpsertAdvisors() {
         //http call for response 
-        Http http = new Http();
-        HttpRequest req = new HttpRequest();
-        req.setEndpoint('https://altimetrik-bootcamp.herokuapp.com/LegalAccounts');
-        req.setMethod('GET');
-        HttpResponse res = http.send(req);
+        HttpResponse res = ucl_httpRequest.httpRequestCall();
 
         List<LegalAdvisors__c> legalAdvisorsToUpsert = new list<LegalAdvisors__c>();	
 
