@@ -10,17 +10,15 @@ private class ucl_TestDeleteOldErrorLogs{
         );
         insert testErrorLog;
 
-        // Start the test
+       
         Test.startTest();
 
-        // Call the execute method
         ucl_DeleteOldErrorLogs scheduler = new ucl_DeleteOldErrorLogs();
         scheduler.execute(null);
 
-        // Stop the test
+
         Test.stopTest();
 
-        // Verify that the old error log was deleted
         List<Error_Log__c> remainingErrorLogs = [SELECT Id FROM Error_Log__c WHERE Id != :testErrorLog.Id];
         System.assertEquals(0, remainingErrorLogs.size(), 'Old error logs were not deleted.');
 

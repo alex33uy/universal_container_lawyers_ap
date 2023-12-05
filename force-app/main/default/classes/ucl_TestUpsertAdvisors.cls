@@ -20,11 +20,11 @@ private class ucl_TestUpsertAdvisors {
 
 
         Test.startTest();
-        // Ejecutar el método UpsertAdvisors
+        
         ucl_UpsertAdvisors.UpsertAdvisors();
         Test.stopTest();
 
-        // Verificar que los registros LegalAdvisors__c se han insertado correctamente
+       
         Integer countLegalAdvisors = [SELECT COUNT() FROM LegalAdvisors__c];
         System.assertEquals(1, countLegalAdvisors, 'Se esperaba un LegalAdvisors__c insertado');
     }
