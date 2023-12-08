@@ -35,7 +35,7 @@ private class ucl_TestDeleteOldErrorLogs{
 
         
     }
-
+    @isTest
     static void testExecute2() {
         // Create newest error to test
         Error_Log__c testErrorLogNew = new Error_Log__c(
