@@ -1,14 +1,11 @@
 public with sharing class ucl_UpsertClients {
 
-    @AuraEnabled
-    public static void UpsertClients() {
-      // http call
-      HttpResponse res = ucl_httpRequest.httpRequestCall();
+    
+    public static void UpsertClients(HttpResponse res) {
 
-      ucl_UpsertAdvisors.UpsertAdvisors();
-      // creating list to fullfill with clients to upsert or to delete
+      // creating list to fullfill with clients to upsert
        List<Client__c> ClientsToUpsert = new list<Client__c>();
-       List<Client__c> ClientsToDelete = new list<Client__c>();
+       
        
        // query all legal advisors
        List<LegalAdvisors__c> legalAdvisors = [Select Id, Account_Number__c
@@ -40,6 +37,7 @@ public with sharing class ucl_UpsertClients {
                        cl.Client_Number__c = (string) mapClientsData.get('ClientNumber');
                        cl.Legal_Advisor__c = legalA.id;
                        cl.Name = (string) mapClientsData.get('FirstName') + ' ' + (string) mapClientsData.get('LastName');
+                       cl.General_ID__c = legalA.Account_Number__c + (string) mapClientsData.get('ClientNumber');
                        ClientsToUpsert.add(cl);
                    }
                }
@@ -55,17 +53,14 @@ for(Client__c c : ClientsToUpsert) {
 }
 
 //Create a query thas looks for the numbers that are in not ClientsToUpsert
-List<Client__c> ClientsNotInJson = [SELECT id, Client_Number__c, Created_by_Syster_Admin__c, Name  FROM Client__c WHERE Client_Number__c NOT IN : ClientNumbers];
-for(Client__c ClientToDelete : ClientsNotInJson) {
-    if(!ClientToDelete.Created_by_Syster_Admin__c) {
-        ClientsToDelete.add(ClientToDelete);
-    }
-}
+List<Client__c> ClientsNotInJson = [SELECT id, Client_Number__c, Created_by_Syster_Admin__c, Name  FROM Client__c WHERE Client_Number__c NOT IN : ClientNumbers
+                                   AND Created_by_Syster_admin__c = false];
+
 
 //execute the dmls or create a new error
         try {
-          upsert ClientsToUpsert Client_Number__c;
-          delete ClientsToDelete;
+          upsert ClientsToUpsert General_ID__c;
+          delete ClientsNotInJson;
           system.debug('Todo salio bien con clients');
         } catch (DmlException e) {
             Error_Log__c customError = new Error_Log__c();

@@ -21,7 +21,7 @@ private class ucl_TestUpsertAdvisors {
 
         Test.startTest();
         
-        ucl_UpsertAdvisors.UpsertAdvisors();
+        ucl_UpsertAdvisors.UpsertAdvisors(res);
         Test.stopTest();
 
        

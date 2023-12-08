@@ -47,7 +47,7 @@ private class ucl_TestUpsertClients {
 
 
         Test.startTest();
-        ucl_UpsertClients.UpsertClients();
+        ucl_UpsertClients.UpsertClients(res);
         Test.stopTest();
               
 

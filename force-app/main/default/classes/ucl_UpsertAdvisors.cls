@@ -1,8 +1,8 @@
 public with sharing class ucl_UpsertAdvisors {
-    @AuraEnabled
-    public static void UpsertAdvisors() {
+    
+    public static void UpsertAdvisors(HttpResponse res) {
         //http call for response 
-        HttpResponse res = ucl_httpRequest.httpRequestCall();
+        //HttpResponse res = ucl_httpRequest.httpRequestCall();
 
         List<LegalAdvisors__c> legalAdvisorsToUpsert = new list<LegalAdvisors__c>();	
 

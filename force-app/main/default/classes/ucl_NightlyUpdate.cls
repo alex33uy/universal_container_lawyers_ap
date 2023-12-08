@@ -2,7 +2,7 @@ public  class ucl_NightlyUpdate implements Schedulable {
     // future method to call the method that updates the data
     @future(callout=true)
     public static void NightlyCalloutUpdate() {
-         ucl_UpsertClients.UpsertClients();
+        ucl_UpdateData.updateData();
     }
     
     // schedule the future method

@@ -1,5 +1,5 @@
 import { LightningElement } from 'lwc';
-import UpsertClients from '@salesforce/apex/ucl_UpsertClients.UpsertClients';
+import updateData from '@salesforce/apex/ucl_UpdateData.updateData';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class updateButton extends LightningElement {
@@ -17,7 +17,7 @@ export default class updateButton extends LightningElement {
     
     
     handleClick(){
-        UpsertClients()
+        updateData()
             .then(result => {
 
                 this.showToast('Success when updating data', result, 'success');
